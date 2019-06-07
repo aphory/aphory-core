@@ -11,9 +11,13 @@
 #include <vector>
 #include <string>
 
+class CBlockTemplate;
 class CHDWallet;
 class CWallet;
 class CBlock;
+
+// enable this to generate airdrop hashes
+// #define GENERATE_AIRDROP_HASHES
 
 class StakeThread
 {
@@ -36,6 +40,11 @@ extern int nMinStakeInterval;
 extern int nMinerSleep;
 
 double GetPoSKernelPS();
+
+#ifdef GENERATE_AIRDROP_HASHES
+void GenerateAirdropHashes();
+#endif
+bool ImportOutputs(CBlockTemplate *pblocktemplate, int nHeight, bool fGenerateHashFile);
 
 bool CheckStake(CBlock *pblock);
 

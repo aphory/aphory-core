@@ -4479,9 +4479,8 @@ static bool ContextualCheckBlock(const CBlock& block, CValidationState& state, c
                 return state.DoS(100, false, REJECT_INVALID, "bad-cb", false, "Second txn of import block must be coinbase");
 
             // Check hash of genesis import txn matches expected hash.
-            uint256 txnHash = block.vtx[1]->GetHash();
-            if (!Params().CheckImportCoinbase(nHeight, txnHash))
-                return state.DoS(100, false, REJECT_INVALID, "bad-cb", false, "Incorrect outputs hash.");
+            if (!Params().CheckAirdropCoinbase(&block, nHeight))
+                return state.DoS(100, false, REJECT_INVALID, "bad-cb", false, "Incorrect airdrop outputs hash.");
         } else
         {
             // 2nd txn can't be coinbase if block height > GetLastImportHeight

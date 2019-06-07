@@ -1396,6 +1396,12 @@ bool AppInitLockDataDirectory()
 bool AppInitMain(InitInterfaces& interfaces)
 {
     const CChainParams& chainparams = Params();
+
+    // Only used to generate the tx hashes for airdrop imports
+#ifdef GENERATE_AIRDROP_HASHES
+     GenerateAirdropHashes();
+#endif
+
     // ********************************************************* Step 4a: application initialization
     if (!CreatePidFile()) {
         // Detailed error printed inside CreatePidFile().

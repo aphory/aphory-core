@@ -108,7 +108,7 @@ public:
     int64_t GetProofOfStakeReward(const CBlockIndex *pindexPrev, int64_t nFees) const;
     int64_t GetMaxSmsgFeeRateDelta(int64_t smsg_fee_prev) const;
 
-    bool CheckImportCoinbase(int nHeight, uint256 &hash) const;
+    bool CheckAirdropCoinbase(const CBlock *pblock, int nHeight) const;
     uint32_t GetLastImportHeight() const { return nLastImportHeight; }
 
     const CBlock& GenesisBlock() const { return genesis; }
@@ -170,7 +170,7 @@ protected:
     uint32_t nTargetTimespan;
 
     uint32_t nStakeTimestampMask = (1 << 4) -1; // 4 bits, every kernel stake hash will change every 16 seconds
-    int64_t nCoinYearReward = 2 * CENT; // 2% per year
+    int64_t nCoinYearReward = 4 * CENT; // 4% per year
 
     std::vector<CImportedCoinbaseTxn> vImportedCoinbaseTxns;
     uint32_t nLastImportHeight;       // set from vImportedCoinbaseTxns
