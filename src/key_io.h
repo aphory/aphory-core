@@ -21,6 +21,7 @@
 #include <base58.h>
 
 CKey DecodeSecret(const std::string& str);
+CKey DecodeSecretg(const std::string& str, const std::vector<unsigned char>& prefix);
 std::string EncodeSecret(const CKey& key);
 
 CExtKey DecodeExtKey(const std::string& str);

@@ -127,6 +127,8 @@ static const CRPCConvertParam vRPCConvertParams[] =
     { "lockunspent", 1, "transactions" },
     { "lockunspent", 2, "permanent" },
     { "importprivkey", 2, "rescan" },
+    { "importprivkeyg", 1, "prefix" },
+    { "importprivkeyg", 2, "rescan" },
     { "importaddress", 2, "rescan" },
     { "importaddress", 3, "p2sh" },
     { "importpubkey", 2, "rescan" },
