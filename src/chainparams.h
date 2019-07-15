@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2018 The Bitcoin Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -220,7 +221,7 @@ void SelectParams(const std::string& chain);
  * Toggle old parameters for unit tests
  */
 void SetOldParams(std::unique_ptr<CChainParams> &params);
-void ResetParams(std::string sNetworkId, bool fParticlModeIn);
+void ResetParams(std::string sNetworkId, bool fAphoryModeIn);
 
 /**
  * mutable handle to regtest params

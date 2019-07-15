@@ -1,4 +1,5 @@
 // Copyright (c) 2013-2018 The Bitcoin Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -94,7 +95,7 @@ void static RandomScript(CScript &script) {
 
 void static RandomTransaction(CMutableTransaction &tx, bool fSingle) {
 
-    tx.nVersion = ((uint32_t)InsecureRand32()) % (PARTICL_TXN_VERSION-1);
+    tx.nVersion = ((uint32_t)InsecureRand32()) % (APHORY_TXN_VERSION-1);
 
     tx.vin.clear();
     tx.vout.clear();
@@ -188,7 +189,7 @@ BOOST_AUTO_TEST_CASE(sighash_from_data)
         CTransactionRef tx;
         CScript scriptCode = CScript();
 
-        bool fExpectHashFailure = false; // adjusting test vectors >= PARTICL_TXN_VERSION
+        bool fExpectHashFailure = false; // adjusting test vectors >= APHORY_TXN_VERSION
         try {
           // deserialize test data
           raw_tx = test[0].get_str();
@@ -201,7 +202,7 @@ BOOST_AUTO_TEST_CASE(sighash_from_data)
             char strHex[2];
             strHex[0] = raw_tx[0];
             strHex[1] = raw_tx[1];
-            if (std::strtoul(strHex, 0, 16) >= PARTICL_TXN_VERSION)
+            if (std::strtoul(strHex, 0, 16) >= APHORY_TXN_VERSION)
             {
                 raw_tx[0] = '0';
                 raw_tx[1] = '0';

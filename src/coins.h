@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2018 The Bitcoin Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -22,7 +23,7 @@
 #include <insight/spentindex.h>
 #include <rctindex.h>
 
-extern bool fParticlMode;
+extern bool fAphoryMode;
 
 /**
  * A UTXO entry.
@@ -89,7 +90,7 @@ public:
         uint32_t code = nHeight * 2 + fCoinBase;
         ::Serialize(s, VARINT(code));
         ::Serialize(s, CTxOutCompressor(REF(out)));
-        if (!fParticlMode) return;
+        if (!fAphoryMode) return;
         ::Serialize(s, nType);
         if (nType == OUTPUT_CT)
             s.write((char*)&commitment.data[0], 33);
@@ -102,7 +103,7 @@ public:
         nHeight = code >> 1;
         fCoinBase = code & 1;
         ::Unserialize(s, CTxOutCompressor(out));
-        if (!fParticlMode) return;
+        if (!fAphoryMode) return;
         ::Unserialize(s, nType);
         if (nType == OUTPUT_CT)
             s.read((char*)&commitment.data[0], 33);

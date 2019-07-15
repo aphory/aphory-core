@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2018 The Bitcoin Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -29,7 +30,7 @@ CAmount GetMinimumFee(const CWallet& wallet, unsigned int nTxBytes, const CCoinC
         if (feeCalc) feeCalc->reason = FeeReason::MAXTXFEE;
     }
 
-    // Particl
+    // Aphory
     if (coin_control.fHaveAnonOutputs)
         fee_needed *= ANON_FEE_MULTIPLIER;
     fee_needed += coin_control.m_extrafee;

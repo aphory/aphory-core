@@ -1,9 +1,10 @@
 // Copyright (c) 2018 The Particl Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef PARTICL_QT_COLDSTAKINGDIALOG_H
-#define PARTICL_QT_COLDSTAKINGDIALOG_H
+#ifndef APHORY_QT_COLDSTAKINGDIALOG_H
+#define APHORY_QT_COLDSTAKINGDIALOG_H
 
 #include <QDialog>
 
@@ -34,4 +35,4 @@ private:
     Ui::ColdStakingDialog *ui;
 };
 
-#endif // PARTICL_QT_COLDSTAKINGDIALOG_H
+#endif // APHORY_QT_COLDSTAKINGDIALOG_H

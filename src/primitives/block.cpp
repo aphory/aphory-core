@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2018 The Bitcoin Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,7 +11,7 @@
 #include <util/strencodings.h>
 #include <crypto/common.h>
 
-int WITNESS_SCALE_FACTOR = WITNESS_SCALE_FACTOR_PART;
+int WITNESS_SCALE_FACTOR = WITNESS_SCALE_FACTOR_APHY;
 
 uint256 CBlockHeader::GetHash() const
 {

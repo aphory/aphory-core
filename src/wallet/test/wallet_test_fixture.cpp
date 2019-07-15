@@ -1,4 +1,5 @@
 // Copyright (c) 2016-2018 The Bitcoin Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -14,7 +15,7 @@ WalletTestingSetup::WalletTestingSetup(const std::string& chainName):
     bool fFirstRun;
 
     gArgs.ForceSetArg("-btcmode", "1");
-    fParticlWallet = false;
+    fAphoryWallet = false;
 
     m_wallet.LoadWallet(fFirstRun);
     RegisterValidationInterface(&m_wallet);

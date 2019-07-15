@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2018 The Bitcoin Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -39,8 +40,8 @@
 // Application startup time (used for uptime calculation)
 int64_t GetStartupTime();
 
-extern bool fParticlMode;
-extern bool fParticlWallet;
+extern bool fAphoryMode;
+extern bool fAphoryWallet;
 
 extern const char * const BITCOIN_CONF_FILENAME;
 
@@ -166,8 +167,8 @@ enum class OptionsCategory {
     COMMANDS,
     REGISTER_COMMANDS,
     SMSG,
-    PART_WALLET,
-    PART_STAKING,
+    APHY_WALLET,
+    APHY_STAKING,
 
     HIDDEN // Always the last option to avoid printing these in the help
 };
@@ -370,7 +371,7 @@ void RenameThread(const char* name);
  */
 template <typename Callable> void TraceThread(const char* name,  Callable func)
 {
-    std::string s = strprintf("particl-%s", name);
+    std::string s = strprintf("aphory-%s", name);
     RenameThread(s.c_str());
     try
     {

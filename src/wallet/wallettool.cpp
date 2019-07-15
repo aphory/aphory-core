@@ -1,4 +1,5 @@
 // Copyright (c) 2016-2018 The Bitcoin Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -30,7 +31,7 @@ static std::shared_ptr<CWallet> CreateWallet(const std::string& name, const fs::
     }
     // dummy chain interface
     auto chain = interfaces::MakeChain();
-    std::shared_ptr<CWallet> wallet_instance(fParticlMode
+    std::shared_ptr<CWallet> wallet_instance(fAphoryMode
         ? std::shared_ptr<CWallet>(new CHDWallet(*chain, WalletLocation(name), WalletDatabase::Create(path)), WalletToolReleaseWallet)
         : std::shared_ptr<CWallet>(new CWallet(*chain, WalletLocation(name), WalletDatabase::Create(path)), WalletToolReleaseWallet));
     bool first_run = true;
@@ -40,7 +41,7 @@ static std::shared_ptr<CWallet> CreateWallet(const std::string& name, const fs::
         return nullptr;
     }
 
-    if (fParticlMode) {
+    if (fAphoryMode) {
         return wallet_instance;
     }
 
@@ -64,7 +65,7 @@ static std::shared_ptr<CWallet> LoadWallet(const std::string& name, const fs::pa
 
     // dummy chain interface
     auto chain = interfaces::MakeChain();
-    std::shared_ptr<CWallet> wallet_instance(fParticlMode
+    std::shared_ptr<CWallet> wallet_instance(fAphoryMode
         ? std::shared_ptr<CWallet>(new CHDWallet(*chain, WalletLocation(name), WalletDatabase::Create(path)), WalletToolReleaseWallet)
         : std::shared_ptr<CWallet>(new CWallet(*chain, WalletLocation(name), WalletDatabase::Create(path)), WalletToolReleaseWallet));
     DBErrors load_wallet_ret;

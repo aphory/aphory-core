@@ -1,4 +1,5 @@
 // Copyright (c) 2018 The Bitcoin Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -292,14 +293,14 @@ public:
     using ReservedBalanceChangedFn = std::function<void(CAmount value)>;
     virtual std::unique_ptr<Handler> handleReservedBalanceChanged(ReservedBalanceChangedFn fn) = 0;
 
-    virtual bool IsParticlWallet() = 0;
+    virtual bool IsAphoryWallet() = 0;
     virtual CAmount getReserveBalance() = 0;
     virtual bool ownDestination(const CTxDestination &dest) = 0;
     virtual bool isUnlockForStakingOnlySet() = 0;
 
     virtual CAmount getAvailableAnonBalance(const CCoinControl& coin_control) = 0;
     virtual CAmount getAvailableBlindBalance(const CCoinControl& coin_control) = 0;
-    virtual CHDWallet *getParticlWallet() = 0;
+    virtual CHDWallet *getAphoryWallet() = 0;
     virtual bool setReserveBalance(CAmount nValue) = 0;
     virtual void lockWallet() = 0;
     virtual bool setUnlockedForStaking() = 0;

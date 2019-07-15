@@ -1,4 +1,5 @@
 // Copyright (c) 2017-2018 The Bitcoin Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -113,8 +114,8 @@ bool TransactionCanBeBumped(const CWallet* wallet, const uint256& txid)
     auto locked_chain = wallet->chain().lock();
     LOCK(wallet->cs_wallet);
 
-    if (fParticlMode) {
-        const CHDWallet *pw = GetParticlWallet(wallet);
+    if (fAphoryMode) {
+        const CHDWallet *pw = GetAphoryWallet(wallet);
         if (!pw) {
             return false;
         }
@@ -150,8 +151,8 @@ Result CreateTransaction(const CWallet* wallet, const uint256& txid, const CCoin
     errors.clear();
 
 
-    if (IsParticlWallet(wallet)) {
-        const CHDWallet *pw = GetParticlWallet(wallet);
+    if (IsAphoryWallet(wallet)) {
+        const CHDWallet *pw = GetAphoryWallet(wallet);
         auto it = wallet->mapWallet.find(txid);
         if (it != wallet->mapWallet.end()) {
             const CWalletTx& wtx = it->second;

@@ -1,4 +1,5 @@
 // Copyright (c) 2017-2018 The Bitcoin Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -25,7 +26,7 @@ public:
             throw std::out_of_range("The output index is out of range");
 
         outpoint = COutPoint(tx->GetHash(), i);
-        if (tx->IsParticlVersion())
+        if (tx->IsAphoryVersion())
         {
             assert(tx->vpout[i]->IsStandardOutput());
             txout.scriptPubKey = *tx->vpout[i]->GetPScriptPubKey();

@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2018 The Bitcoin Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -74,10 +75,10 @@
 // Application startup time (used for uptime calculation)
 const int64_t nStartupTime = GetTime();
 
-const char * const BITCOIN_CONF_FILENAME = "particl.conf";
+const char * const BITCOIN_CONF_FILENAME = "aphory.conf";
 
-bool fParticlMode = true;
-bool fParticlWallet = false;
+bool fAphoryMode = true;
+bool fAphoryWallet = false;
 ArgsManager gArgs;
 
 /** A map that contains all the currently held directory locks. After
@@ -820,10 +821,10 @@ std::string ArgsManager::GetHelpMessage() const
             case OptionsCategory::SMSG:
                 usage += HelpMessageGroup("SMSG Commands:");
                 break;
-            case OptionsCategory::PART_WALLET:
-                usage += HelpMessageGroup("Particl wallet Commands:");
+            case OptionsCategory::APHY_WALLET:
+                usage += HelpMessageGroup("Aphory wallet Commands:");
                 break;
-            case OptionsCategory::PART_STAKING:
+            case OptionsCategory::APHY_STAKING:
                 usage += HelpMessageGroup("Staking Commands:");
                 break;
             default:
@@ -880,7 +881,7 @@ static std::string FormatException(const std::exception* pex, const char* pszThr
     char pszModule[MAX_PATH] = "";
     GetModuleFileNameA(nullptr, pszModule, sizeof(pszModule));
 #else
-    const char* pszModule = "particl";
+    const char* pszModule = "aphory";
 #endif
     if (pex)
         return strprintf(
@@ -899,13 +900,13 @@ void PrintExceptionContinue(const std::exception* pex, const char* pszThread)
 
 fs::path GetDefaultDataDir()
 {
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Particl
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Particl
-    // Mac: ~/Library/Application Support/Particl
-    // Unix: ~/.particl
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Aphory
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Aphory
+    // Mac: ~/Library/Application Support/Aphory
+    // Unix: ~/.aphory
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "Particl";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "Aphory";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -915,10 +916,10 @@ fs::path GetDefaultDataDir()
         pathRet = fs::path(pszHome);
 #ifdef MAC_OSX
     // Mac
-    return pathRet / "Library/Application Support/Particl";
+    return pathRet / "Library/Application Support/Aphory";
 #else
     // Unix
-    return pathRet / ".particl";
+    return pathRet / ".aphory";
 #endif
 #endif
 }
@@ -1424,11 +1425,11 @@ int GetNumCores()
 std::string CopyrightHolders(const std::string& strPrefix)
 {
     const int BTC_START_YEAR = 2009;
-    const int PART_START_YEAR = 2017;
+    const int APHY_START_YEAR = 2017;
 
-    std::string sRange = PART_START_YEAR == COPYRIGHT_YEAR
+    std::string sRange = APHY_START_YEAR == COPYRIGHT_YEAR
         ? strprintf(" %i ", COPYRIGHT_YEAR)
-        : strprintf(" %i-%i ", PART_START_YEAR, COPYRIGHT_YEAR);
+        : strprintf(" %i-%i ", APHY_START_YEAR, COPYRIGHT_YEAR);
 
     std::string strCopyrightHolders = strPrefix + sRange + strprintf(_(COPYRIGHT_HOLDERS), _(COPYRIGHT_HOLDERS_SUBSTITUTION));
 

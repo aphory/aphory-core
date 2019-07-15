@@ -24,42 +24,42 @@ BITCOIN_INCLUDES=-I$(builddir) $(BDB_CPPFLAGS) $(BOOST_CPPFLAGS) $(LEVELDB_CPPFL
 BITCOIN_INCLUDES += -I$(srcdir)/secp256k1/include
 BITCOIN_INCLUDES += $(UNIVALUE_CFLAGS)
 
-LIBPARTICL_SERVER=libparticl_server.a
-LIBPARTICL_COMMON=libparticl_common.a
-LIBPARTICL_CONSENSUS=libparticl_consensus.a
-LIBPARTICL_CLI=libparticl_cli.a
-LIBPARTICL_UTIL=libparticl_util.a
-LIBPARTICL_CRYPTO_BASE=crypto/libparticl_crypto_base.a
-LIBPARTICLQT=qt/libparticlqt.a
+LIBAPHORY_SERVER=libaphory_server.a
+LIBAPHORY_COMMON=libaphory_common.a
+LIBAPHORY_CONSENSUS=libaphory_consensus.a
+LIBAPHORY_CLI=libaphory_cli.a
+LIBAPHORY_UTIL=libaphory_util.a
+LIBAPHORY_CRYPTO_BASE=crypto/libaphory_crypto_base.a
+LIBAPHORYQT=qt/libaphoryqt.a
 LIBSECP256K1=secp256k1/libsecp256k1.la
-LIBPARTICL_SMSG=libparticl_smsg.a
+LIBAPHORY_SMSG=libaphory_smsg.a
 
 if ENABLE_ZMQ
-LIBPARTICL_ZMQ=libparticl_zmq.a
+LIBAPHORY_ZMQ=libaphory_zmq.a
 endif
 if BUILD_BITCOIN_LIBS
-LIBPARTICLCONSENSUS=libparticlconsensus.la
+LIBAPHORYCONSENSUS=libaphoryconsensus.la
 endif
 if ENABLE_WALLET
-LIBPARTICL_WALLET=libparticl_wallet.a
-LIBPARTICL_WALLET_TOOL=libparticl_wallet_tool.a
+LIBAPHORY_WALLET=libaphory_wallet.a
+LIBAPHORY_WALLET_TOOL=libaphory_wallet_tool.a
 endif
 if ENABLE_USBDEVICE
-LIBPARTICL_USBDEVICE=libparticl_usbdevice.a
+LIBAPHORY_USBDEVICE=libaphory_usbdevice.a
 endif
 
-LIBPARTICL_CRYPTO= $(LIBPARTICL_CRYPTO_BASE)
+LIBAPHORY_CRYPTO= $(LIBAPHORY_CRYPTO_BASE)
 if ENABLE_SSE41
-LIBPARTICL_CRYPTO_SSE41 = crypto/libparticl_crypto_sse41.a
-LIBPARTICL_CRYPTO += $(LIBPARTICL_CRYPTO_SSE41)
+LIBAPHORY_CRYPTO_SSE41 = crypto/libaphory_crypto_sse41.a
+LIBAPHORY_CRYPTO += $(LIBAPHORY_CRYPTO_SSE41)
 endif
 if ENABLE_AVX2
-LIBPARTICL_CRYPTO_AVX2 = crypto/libparticl_crypto_avx2.a
-LIBPARTICL_CRYPTO += $(LIBPARTICL_CRYPTO_AVX2)
+LIBAPHORY_CRYPTO_AVX2 = crypto/libaphory_crypto_avx2.a
+LIBAPHORY_CRYPTO += $(LIBAPHORY_CRYPTO_AVX2)
 endif
 if ENABLE_SHANI
-LIBPARTICL_CRYPTO_SHANI = crypto/libparticl_crypto_shani.a
-LIBPARTICL_CRYPTO += $(LIBPARTICL_CRYPTO_SHANI)
+LIBAPHORY_CRYPTO_SHANI = crypto/libaphory_crypto_shani.a
+LIBAPHORY_CRYPTO += $(LIBAPHORY_CRYPTO_SHANI)
 endif
 
 $(LIBSECP256K1): $(wildcard secp256k1/src/*.h) $(wildcard secp256k1/src/*.c) $(wildcard secp256k1/include/*)
@@ -68,19 +68,19 @@ $(LIBSECP256K1): $(wildcard secp256k1/src/*.h) $(wildcard secp256k1/src/*.c) $(w
 # Make is not made aware of per-object dependencies to avoid limiting building parallelization
 # But to build the less dependent modules first, we manually select their order here:
 EXTRA_LIBRARIES += \
-  $(LIBPARTICL_CRYPTO) \
-  $(LIBPARTICL_UTIL) \
-  $(LIBPARTICL_COMMON) \
-  $(LIBPARTICL_CONSENSUS) \
-  $(LIBPARTICL_SERVER) \
-  $(LIBPARTICL_CLI) \
-  $(LIBPARTICL_WALLET) \
-  $(LIBPARTICL_WALLET_TOOL) \
-  $(LIBPARTICL_USBDEVICE) \
-  $(LIBPARTICL_SMSG) \
-  $(LIBPARTICL_ZMQ)
+  $(LIBAPHORY_CRYPTO) \
+  $(LIBAPHORY_UTIL) \
+  $(LIBAPHORY_COMMON) \
+  $(LIBAPHORY_CONSENSUS) \
+  $(LIBAPHORY_SERVER) \
+  $(LIBAPHORY_CLI) \
+  $(LIBAPHORY_WALLET) \
+  $(LIBAPHORY_WALLET_TOOL) \
+  $(LIBAPHORY_USBDEVICE) \
+  $(LIBAPHORY_SMSG) \
+  $(LIBAPHORY_ZMQ)
 
-lib_LTLIBRARIES = $(LIBPARTICLCONSENSUS)
+lib_LTLIBRARIES = $(LIBAPHORYCONSENSUS)
 
 bin_PROGRAMS =
 noinst_PROGRAMS =
@@ -88,18 +88,18 @@ TESTS =
 BENCHMARKS =
 
 if BUILD_BITCOIND
-  bin_PROGRAMS += particld
+  bin_PROGRAMS += aphoryd
 endif
 
 if BUILD_BITCOIN_CLI
-  bin_PROGRAMS += particl-cli
+  bin_PROGRAMS += aphory-cli
 endif
 if BUILD_BITCOIN_TX
-  bin_PROGRAMS += particl-tx
+  bin_PROGRAMS += aphory-tx
 endif
 if ENABLE_WALLET
 if BUILD_BITCOIN_WALLET
-  bin_PROGRAMS += particl-wallet
+  bin_PROGRAMS += aphory-wallet
 endif
 endif
 
@@ -276,12 +276,12 @@ obj/build.h: FORCE
 	@$(MKDIR_P) $(builddir)/obj
 	@$(top_srcdir)/share/genbuild.sh $(abs_top_builddir)/src/obj/build.h \
 	  $(abs_top_srcdir)
-libparticl_util_a-clientversion.$(OBJEXT): obj/build.h
+libaphory_util_a-clientversion.$(OBJEXT): obj/build.h
 
 # server: shared between bitcoind and bitcoin-qt
-libparticl_server_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
-libparticl_server_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libparticl_server_a_SOURCES = \
+libaphory_server_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
+libaphory_server_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libaphory_server_a_SOURCES = \
   addrdb.cpp \
   addrman.cpp \
   banman.cpp \
@@ -339,13 +339,13 @@ libparticl_server_a_SOURCES = \
   $(BITCOIN_CORE_H)
 
 if !ENABLE_WALLET
-libparticl_server_a_SOURCES += dummywallet.cpp
+libaphory_server_a_SOURCES += dummywallet.cpp
 endif
 
 if ENABLE_ZMQ
-libparticl_zmq_a_CPPFLAGS = $(BITCOIN_INCLUDES) $(ZMQ_CFLAGS)
-libparticl_zmq_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libparticl_zmq_a_SOURCES = \
+libaphory_zmq_a_CPPFLAGS = $(BITCOIN_INCLUDES) $(ZMQ_CFLAGS)
+libaphory_zmq_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libaphory_zmq_a_SOURCES = \
   zmq/zmqabstractnotifier.cpp \
   zmq/zmqnotificationinterface.cpp \
   zmq/zmqpublishnotifier.cpp \
@@ -353,10 +353,10 @@ libparticl_zmq_a_SOURCES = \
 endif
 
 if ENABLE_USBDEVICE
-libparticl_usbdevice_a_CPPFLAGS = $(BITCOIN_INCLUDES) $(AM_CPPFLAGS) $(PROTOBUF_CFLAGS)
-libparticl_usbdevice_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libparticl_usbdevice_a_CFLAGS = -DHAVE_HIDAPI $(AM_CFLAGS)
-libparticl_usbdevice_a_SOURCES = \
+libaphory_usbdevice_a_CPPFLAGS = $(BITCOIN_INCLUDES) $(AM_CPPFLAGS) $(PROTOBUF_CFLAGS)
+libaphory_usbdevice_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libaphory_usbdevice_a_CFLAGS = -DHAVE_HIDAPI $(AM_CFLAGS)
+libaphory_usbdevice_a_SOURCES = \
   usbdevice/usbwrapper.cpp \
   usbdevice/usbwrapper.h \
   usbdevice/ledger/btchipApdu.h \
@@ -376,7 +376,7 @@ libparticl_usbdevice_a_SOURCES = \
   usbdevice/trezordevice.h \
   usbdevice/trezordevice.cpp \
   usbdevice/rpcusbdevice.cpp
-nodist_libparticl_usbdevice_a_SOURCES = \
+nodist_libaphory_usbdevice_a_SOURCES = \
   usbdevice/trezor/messages.pb.h \
   usbdevice/trezor/messages.pb.cc \
   usbdevice/trezor/messages-common.pb.h \
@@ -385,14 +385,14 @@ nodist_libparticl_usbdevice_a_SOURCES = \
   usbdevice/trezor/messages-management.pb.cc \
   usbdevice/trezor/messages-bitcoin.pb.h \
   usbdevice/trezor/messages-bitcoin.pb.cc
-BUILT_SOURCES = $(nodist_libparticl_usbdevice_a_SOURCES)
+BUILT_SOURCES = $(nodist_libaphory_usbdevice_a_SOURCES)
 endif
 
 # wallet: shared between bitcoind and bitcoin-qt, but only linked
 # when wallet enabled
-libparticl_wallet_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-libparticl_wallet_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libparticl_wallet_a_SOURCES = \
+libaphory_wallet_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libaphory_wallet_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libaphory_wallet_a_SOURCES = \
   interfaces/wallet.cpp \
   wallet/coincontrol.cpp \
   wallet/crypter.cpp \
@@ -416,16 +416,16 @@ libparticl_wallet_a_SOURCES = \
   wallet/coinselection.cpp \
   $(BITCOIN_CORE_H)
 
-libparticl_wallet_tool_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-libparticl_wallet_tool_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libparticl_wallet_tool_a_SOURCES = \
+libaphory_wallet_tool_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libaphory_wallet_tool_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libaphory_wallet_tool_a_SOURCES = \
   wallet/wallettool.cpp \
   $(BITCOIN_CORE_H)
 
 # crypto primitives library
-crypto_libparticl_crypto_base_a_CPPFLAGS = $(AM_CPPFLAGS)
-crypto_libparticl_crypto_base_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-crypto_libparticl_crypto_base_a_SOURCES = \
+crypto_libaphory_crypto_base_a_CPPFLAGS = $(AM_CPPFLAGS)
+crypto_libaphory_crypto_base_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+crypto_libaphory_crypto_base_a_SOURCES = \
   crypto/aes.cpp \
   crypto/aes.h \
   crypto/chacha20.h \
@@ -447,31 +447,31 @@ crypto_libparticl_crypto_base_a_SOURCES = \
   crypto/siphash.h
 
 if USE_ASM
-crypto_libparticl_crypto_base_a_SOURCES += crypto/sha256_sse4.cpp
+crypto_libaphory_crypto_base_a_SOURCES += crypto/sha256_sse4.cpp
 endif
 
-crypto_libparticl_crypto_sse41_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-crypto_libparticl_crypto_sse41_a_CPPFLAGS = $(AM_CPPFLAGS)
-crypto_libparticl_crypto_sse41_a_CXXFLAGS += $(SSE41_CXXFLAGS)
-crypto_libparticl_crypto_sse41_a_CPPFLAGS += -DENABLE_SSE41
-crypto_libparticl_crypto_sse41_a_SOURCES = crypto/sha256_sse41.cpp
+crypto_libaphory_crypto_sse41_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+crypto_libaphory_crypto_sse41_a_CPPFLAGS = $(AM_CPPFLAGS)
+crypto_libaphory_crypto_sse41_a_CXXFLAGS += $(SSE41_CXXFLAGS)
+crypto_libaphory_crypto_sse41_a_CPPFLAGS += -DENABLE_SSE41
+crypto_libaphory_crypto_sse41_a_SOURCES = crypto/sha256_sse41.cpp
 
-crypto_libparticl_crypto_avx2_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-crypto_libparticl_crypto_avx2_a_CPPFLAGS = $(AM_CPPFLAGS)
-crypto_libparticl_crypto_avx2_a_CXXFLAGS += $(AVX2_CXXFLAGS)
-crypto_libparticl_crypto_avx2_a_CPPFLAGS += -DENABLE_AVX2
-crypto_libparticl_crypto_avx2_a_SOURCES = crypto/sha256_avx2.cpp
+crypto_libaphory_crypto_avx2_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+crypto_libaphory_crypto_avx2_a_CPPFLAGS = $(AM_CPPFLAGS)
+crypto_libaphory_crypto_avx2_a_CXXFLAGS += $(AVX2_CXXFLAGS)
+crypto_libaphory_crypto_avx2_a_CPPFLAGS += -DENABLE_AVX2
+crypto_libaphory_crypto_avx2_a_SOURCES = crypto/sha256_avx2.cpp
 
-crypto_libparticl_crypto_shani_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-crypto_libparticl_crypto_shani_a_CPPFLAGS = $(AM_CPPFLAGS)
-crypto_libparticl_crypto_shani_a_CXXFLAGS += $(SHANI_CXXFLAGS)
-crypto_libparticl_crypto_shani_a_CPPFLAGS += -DENABLE_SHANI
-crypto_libparticl_crypto_shani_a_SOURCES = crypto/sha256_shani.cpp
+crypto_libaphory_crypto_shani_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+crypto_libaphory_crypto_shani_a_CPPFLAGS = $(AM_CPPFLAGS)
+crypto_libaphory_crypto_shani_a_CXXFLAGS += $(SHANI_CXXFLAGS)
+crypto_libaphory_crypto_shani_a_CPPFLAGS += -DENABLE_SHANI
+crypto_libaphory_crypto_shani_a_SOURCES = crypto/sha256_shani.cpp
 
 # consensus: shared between all executables that validate any consensus rules.
-libparticl_consensus_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-libparticl_consensus_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libparticl_consensus_a_SOURCES = \
+libaphory_consensus_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libaphory_consensus_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libaphory_consensus_a_SOURCES = \
   amount.h \
   arith_uint256.cpp \
   arith_uint256.h \
@@ -505,9 +505,9 @@ libparticl_consensus_a_SOURCES = \
   version.h
 
 # common: shared between bitcoind, and bitcoin-qt and non-server tools
-libparticl_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-libparticl_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libparticl_common_a_SOURCES = \
+libaphory_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libaphory_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libaphory_common_a_SOURCES = \
   base58.cpp \
   bech32.cpp \
   chainparams.cpp \
@@ -544,9 +544,9 @@ libparticl_common_a_SOURCES = \
 # util: shared between all executables.
 # This library *must* be included to make sure that the glibc
 # backward-compatibility objects and their sanity checks are linked.
-libparticl_util_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-libparticl_util_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libparticl_util_a_SOURCES = \
+libaphory_util_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libaphory_util_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libaphory_util_a_SOURCES = \
   support/lockedpool.cpp \
   chainparamsbase.cpp \
   clientversion.cpp \
@@ -569,9 +569,9 @@ libparticl_util_a_SOURCES = \
   $(BITCOIN_CORE_H)
 
 
-libparticl_smsg_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-libparticl_smsg_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libparticl_smsg_a_SOURCES = \
+libaphory_smsg_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libaphory_smsg_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libaphory_smsg_a_SOURCES = \
   lz4/lz4.h \
   lz4/lz4.c \
   xxhash/xxhash.h \
@@ -586,139 +586,139 @@ libparticl_smsg_a_SOURCES = \
 
 
 if GLIBC_BACK_COMPAT
-libparticl_util_a_SOURCES += compat/glibc_compat.cpp
+libaphory_util_a_SOURCES += compat/glibc_compat.cpp
 AM_LDFLAGS += $(COMPAT_LDFLAGS)
 endif
 
 # cli: shared between bitcoin-cli and bitcoin-qt
-libparticl_cli_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-libparticl_cli_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libparticl_cli_a_SOURCES = \
+libaphory_cli_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libaphory_cli_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libaphory_cli_a_SOURCES = \
   rpc/client.cpp \
   $(BITCOIN_CORE_H)
 
 
-nodist_libparticl_util_a_SOURCES = $(srcdir)/obj/build.h
+nodist_libaphory_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
 # bitcoind binary #
-particld_SOURCES = bitcoind.cpp
-particld_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-particld_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-particld_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+aphoryd_SOURCES = bitcoind.cpp
+aphoryd_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+aphoryd_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+aphoryd_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-particld_SOURCES += bitcoind-res.rc
+aphoryd_SOURCES += bitcoind-res.rc
 endif
 
-particld_LDADD = \
-  $(LIBPARTICL_SERVER) \
-  $(LIBPARTICL_WALLET) \
-  $(LIBPARTICL_COMMON) \
+aphoryd_LDADD = \
+  $(LIBAPHORY_SERVER) \
+  $(LIBAPHORY_WALLET) \
+  $(LIBAPHORY_COMMON) \
   $(LIBUNIVALUE) \
-  $(LIBPARTICL_UTIL) \
-  $(LIBPARTICL_ZMQ) \
-  $(LIBPARTICL_CONSENSUS) \
-  $(LIBPARTICL_CRYPTO) \
+  $(LIBAPHORY_UTIL) \
+  $(LIBAPHORY_ZMQ) \
+  $(LIBAPHORY_CONSENSUS) \
+  $(LIBAPHORY_CRYPTO) \
   $(LIBLEVELDB) \
   $(LIBLEVELDB_SSE42) \
   $(LIBMEMENV) \
   $(LIBSECP256K1) \
-  $(LIBPARTICL_SMSG) \
-  $(LIBPARTICL_USBDEVICE)
+  $(LIBAPHORY_SMSG) \
+  $(LIBAPHORY_USBDEVICE)
 
-particld_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS)
+aphoryd_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS)
 if ENABLE_USBDEVICE
-particld_LDADD += $(USB_LIBS) $(HIDAPI_LIBS) $(PROTOBUF_LIBS)
+aphoryd_LDADD += $(USB_LIBS) $(HIDAPI_LIBS) $(PROTOBUF_LIBS)
 endif
 
 # bitcoin-cli binary #
 #$(BITCOIN_CLI_NAME)_SOURCES = bitcoin-cli.cpp
-particl_cli_SOURCES = bitcoin-cli.cpp
-particl_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
-particl_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-particl_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+aphory_cli_SOURCES = bitcoin-cli.cpp
+aphory_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
+aphory_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+aphory_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-particl_cli_SOURCES += bitcoin-cli-res.rc
+aphory_cli_SOURCES += bitcoin-cli-res.rc
 endif
 
-particl_cli_LDADD = \
-  $(LIBPARTICL_CLI) \
+aphory_cli_LDADD = \
+  $(LIBAPHORY_CLI) \
   $(LIBUNIVALUE) \
-  $(LIBPARTICL_UTIL) \
-  $(LIBPARTICL_CRYPTO)
+  $(LIBAPHORY_UTIL) \
+  $(LIBAPHORY_CRYPTO)
 
-particl_cli_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
+aphory_cli_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
 #
 
 # bitcoin-tx binary #
-particl_tx_SOURCES = bitcoin-tx.cpp
-particl_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-particl_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-particl_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+aphory_tx_SOURCES = bitcoin-tx.cpp
+aphory_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+aphory_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+aphory_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-particl_tx_SOURCES += bitcoin-tx-res.rc
+aphory_tx_SOURCES += bitcoin-tx-res.rc
 endif
 
-particl_tx_LDADD = \
+aphory_tx_LDADD = \
   $(LIBUNIVALUE) \
-  $(LIBPARTICL_COMMON) \
-  $(LIBPARTICL_UTIL) \
-  $(LIBPARTICL_CONSENSUS) \
-  $(LIBPARTICL_CRYPTO) \
+  $(LIBAPHORY_COMMON) \
+  $(LIBAPHORY_UTIL) \
+  $(LIBAPHORY_CONSENSUS) \
+  $(LIBAPHORY_CRYPTO) \
   $(LIBSECP256K1)
 
-particl_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
+aphory_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
 #
 
 # bitcoin-wallet binary #
-particl_wallet_SOURCES = bitcoin-wallet.cpp
-particl_wallet_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-particl_wallet_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-particl_wallet_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+aphory_wallet_SOURCES = bitcoin-wallet.cpp
+aphory_wallet_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+aphory_wallet_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+aphory_wallet_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-particl_wallet_SOURCES += bitcoin-wallet-res.rc
+aphory_wallet_SOURCES += bitcoin-wallet-res.rc
 endif
 
-particl_wallet_LDADD = \
-  $(LIBPARTICL_WALLET_TOOL) \
-  $(LIBPARTICL_SERVER) \
-  $(LIBPARTICL_WALLET) \
-  $(LIBPARTICL_COMMON) \
-  $(LIBPARTICL_CONSENSUS) \
-  $(LIBPARTICL_UTIL) \
-  $(LIBPARTICL_CRYPTO) \
-  $(LIBPARTICL_SMSG) \
-  $(LIBPARTICL_USBDEVICE) \
-  $(LIBPARTICL_ZMQ) \
+aphory_wallet_LDADD = \
+  $(LIBAPHORY_WALLET_TOOL) \
+  $(LIBAPHORY_SERVER) \
+  $(LIBAPHORY_WALLET) \
+  $(LIBAPHORY_COMMON) \
+  $(LIBAPHORY_CONSENSUS) \
+  $(LIBAPHORY_UTIL) \
+  $(LIBAPHORY_CRYPTO) \
+  $(LIBAPHORY_SMSG) \
+  $(LIBAPHORY_USBDEVICE) \
+  $(LIBAPHORY_ZMQ) \
   $(LIBUNIVALUE) \
   $(LIBLEVELDB) \
   $(LIBLEVELDB_SSE42) \
   $(LIBMEMENV) \
   $(LIBSECP256K1)
 
-particl_wallet_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS)
+aphory_wallet_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS)
 if ENABLE_USBDEVICE
-particl_wallet_LDADD += $(USB_LIBS) $(HIDAPI_LIBS) $(PROTOBUF_LIBS)
+aphory_wallet_LDADD += $(USB_LIBS) $(HIDAPI_LIBS) $(PROTOBUF_LIBS)
 endif
 #
 
 # bitcoinconsensus library #
 if BUILD_BITCOIN_LIBS
-include_HEADERS = script/particlconsensus.h
-libparticlconsensus_la_SOURCES = $(crypto_libparticl_crypto_base_a_SOURCES) $(libparticl_consensus_a_SOURCES)
+include_HEADERS = script/aphoryconsensus.h
+libaphoryconsensus_la_SOURCES = $(crypto_libaphory_crypto_base_a_SOURCES) $(libaphory_consensus_a_SOURCES)
 
 if GLIBC_BACK_COMPAT
-  libparticlconsensus_la_SOURCES += compat/glibc_compat.cpp
+  libaphoryconsensus_la_SOURCES += compat/glibc_compat.cpp
 endif
 
-libparticlconsensus_la_LDFLAGS = $(AM_LDFLAGS) -no-undefined $(RELDFLAGS)
-libparticlconsensus_la_LIBADD = $(LIBSECP256K1) $(BOOST_LIBS)
-libparticlconsensus_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(builddir)/obj -I$(srcdir)/secp256k1/include -DBUILD_BITCOIN_INTERNAL
-libparticlconsensus_la_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libaphoryconsensus_la_LDFLAGS = $(AM_LDFLAGS) -no-undefined $(RELDFLAGS)
+libaphoryconsensus_la_LIBADD = $(LIBSECP256K1) $(BOOST_LIBS)
+libaphoryconsensus_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(builddir)/obj -I$(srcdir)/secp256k1/include -DBUILD_BITCOIN_INTERNAL
+libaphoryconsensus_la_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 
 endif
 #

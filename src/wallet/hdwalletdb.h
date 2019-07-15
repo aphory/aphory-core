@@ -1,9 +1,10 @@
 // Copyright (c) 2017-2018 The Particl Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef PARTICL_WALLET_HDWALLETDB_H
-#define PARTICL_WALLET_HDWALLETDB_H
+#ifndef APHORY_WALLET_HDWALLETDB_H
+#define APHORY_WALLET_HDWALLETDB_H
 
 #include <primitives/transaction.h>
 #include <wallet/walletdb.h>
@@ -408,4 +409,4 @@ public:
     bool EraseWalletSetting(const std::string &setting);
 };
 
-#endif // PARTICL_WALLET_HDWALLETDB_H
+#endif // APHORY_WALLET_HDWALLETDB_H

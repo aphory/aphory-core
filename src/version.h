@@ -1,4 +1,5 @@
 // Copyright (c) 2012-2018 The Bitcoin Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,7 +11,7 @@
  */
 
 static const int PROTOCOL_VERSION = 90009;
-static const int MIN_PARTICL_VERSION = 90004;
+static const int MIN_APHORY_VERSION = 90004;
 
 //! initial proto version, to be increased after version/verack negotiation
 static const int INIT_PROTO_VERSION = 209;

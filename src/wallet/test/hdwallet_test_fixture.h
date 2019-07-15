@@ -1,9 +1,10 @@
 // Copyright (c) 2017-2018 The Particl Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef PARTICL_WALLET_TEST_HDWALLET_TEST_FIXTURE_H
-#define PARTICL_WALLET_TEST_HDWALLET_TEST_FIXTURE_H
+#ifndef APHORY_WALLET_TEST_HDWALLET_TEST_FIXTURE_H
+#define APHORY_WALLET_TEST_HDWALLET_TEST_FIXTURE_H
 
 #include <test/test_bitcoin.h>
 #include <interfaces/chain.h>
@@ -23,5 +24,5 @@ struct HDWalletTestingSetup: public TestingSetup {
 
 std::string StripQuotes(std::string s);
 
-#endif // PARTICL_WALLET_TEST_HDWALLET_TEST_FIXTURE_H
+#endif // APHORY_WALLET_TEST_HDWALLET_TEST_FIXTURE_H
 

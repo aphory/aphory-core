@@ -1,8 +1,9 @@
 // Copyright (c) 2011-2018 The Bitcoin Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#define BOOST_TEST_MODULE Particl Test Suite
+#define BOOST_TEST_MODULE Aphory Test Suite
 
 #include <banman.h>
 #include <net.h>

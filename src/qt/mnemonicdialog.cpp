@@ -1,4 +1,5 @@
 // Copyright (c) 2017-2018 The Particl Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -139,7 +140,7 @@ void MnemonicDialog::on_btnImportFromHwd_clicked()
 
     m_thread = new RPCThread(sCommand, walletModel->getWalletName(), &m_rv);
     connect(m_thread, &RPCThread::complete, this, &MnemonicDialog::hwImportComplete);
-    m_thread->setObjectName("particl-hwImport");
+    m_thread->setObjectName("aphory-hwImport");
     m_thread->start();
 
     return;
@@ -164,7 +165,7 @@ void MnemonicDialog::hwImportComplete(bool passed)
         ui->tbxHwdOut->appendPlainText(sError);
         if (sError == "No device found."
             || sError.indexOf("6982") > -1) {
-            ui->tbxHwdOut->appendPlainText("Open particl app on device before importing.");
+            ui->tbxHwdOut->appendPlainText("Open aphory app on device before importing.");
         }
     } else {
         UniValue rv;

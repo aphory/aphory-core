@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2018 The Bitcoin Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -41,7 +42,7 @@ public:
         READWRITE(nVersion);
         READWRITE(hashPrevBlock);
         READWRITE(hashMerkleRoot);
-        if (IsParticlVersion()) {
+        if (IsAphoryVersion()) {
             READWRITE(hashWitnessMerkleRoot);
         }
         READWRITE(nTime);
@@ -67,9 +68,9 @@ public:
 
     uint256 GetHash() const;
 
-    bool IsParticlVersion() const
+    bool IsAphoryVersion() const
     {
-        return nVersion == PARTICL_BLOCK_VERSION;
+        return nVersion == APHORY_BLOCK_VERSION;
     }
 
     int64_t GetBlockTime() const
@@ -134,7 +135,7 @@ public:
     inline void SerializationOp(Stream& s, Operation ser_action) {
         READWRITEAS(CBlockHeader, *this);
         READWRITE(vtx);
-        if (nVersion == PARTICL_BLOCK_VERSION) {
+        if (nVersion == APHORY_BLOCK_VERSION) {
             READWRITE(vchBlockSig);
         }
     }

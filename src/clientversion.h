@@ -1,4 +1,5 @@
 // Copyright (c) 2009-2018 The Bitcoin Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,7 +11,7 @@
 #endif //HAVE_CONFIG_H
 
 // Check that required client information is defined
-#if !defined(CLIENT_VERSION_MAJOR) || !defined(CLIENT_VERSION_MINOR) || !defined(CLIENT_VERSION_REVISION) || !defined(CLIENT_VERSION_PARTICL) || !defined(CLIENT_VERSION_BUILD) || !defined(CLIENT_VERSION_IS_RELEASE) || !defined(COPYRIGHT_YEAR)
+#if !defined(CLIENT_VERSION_MAJOR) || !defined(CLIENT_VERSION_MINOR) || !defined(CLIENT_VERSION_REVISION) || !defined(CLIENT_VERSION_APHORY) || !defined(CLIENT_VERSION_BUILD) || !defined(CLIENT_VERSION_IS_RELEASE) || !defined(COPYRIGHT_YEAR)
 #error Client version information missing: version is not defined by bitcoin-config.h or in any other way
 #endif
 
@@ -39,7 +40,7 @@ static const int CLIENT_VERSION =
                            100000000 * CLIENT_VERSION_MAJOR
                          +   1000000 * CLIENT_VERSION_MINOR
                          +     10000 * CLIENT_VERSION_REVISION
-                         +       100 * CLIENT_VERSION_PARTICL
+                         +       100 * CLIENT_VERSION_APHORY
                          +         1 * CLIENT_VERSION_BUILD;
 
 extern const std::string CLIENT_NAME;

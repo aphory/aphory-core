@@ -1,4 +1,5 @@
 // Copyright (c) 2011-2018 The Bitcoin Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -26,7 +27,7 @@ const std::function<std::string(const char*)> G_TRANSLATION_FUN = nullptr;
 
 FastRandomContext g_insecure_rand_ctx;
 
-extern bool fParticlMode;
+extern bool fAphoryMode;
 
 std::ostream& operator<<(std::ostream& os, const uint256& num)
 {
@@ -34,10 +35,10 @@ std::ostream& operator<<(std::ostream& os, const uint256& num)
     return os;
 }
 
-BasicTestingSetup::BasicTestingSetup(const std::string& chainName, bool fParticlModeIn)
-    : m_path_root(fs::temp_directory_path() / "test_particl" / strprintf("%lu_%i", (unsigned long)GetTime(), (int)(InsecureRandRange(1 << 30))))
+BasicTestingSetup::BasicTestingSetup(const std::string& chainName, bool fAphoryModeIn)
+    : m_path_root(fs::temp_directory_path() / "test_aphory" / strprintf("%lu_%i", (unsigned long)GetTime(), (int)(InsecureRandRange(1 << 30))))
 {
-    fParticlMode = fParticlModeIn;
+    fAphoryMode = fAphoryModeIn;
 
     SHA256AutoDetect();
     ECC_Start();
@@ -51,7 +52,7 @@ BasicTestingSetup::BasicTestingSetup(const std::string& chainName, bool fParticl
     gArgs.ForceSetArg("-vbparams", strprintf("segwit:0:%d", (int64_t)Consensus::BIP9Deployment::NO_TIMEOUT));
     SelectParams(chainName);
 
-    ResetParams(chainName, fParticlMode);
+    ResetParams(chainName, fAphoryMode);
 
     noui_connect();
 }
@@ -70,7 +71,7 @@ fs::path BasicTestingSetup::SetDataDir(const std::string& name)
     return ret;
 }
 
-TestingSetup::TestingSetup(const std::string& chainName, bool fParticlModeIn) : BasicTestingSetup(chainName, fParticlModeIn)
+TestingSetup::TestingSetup(const std::string& chainName, bool fAphoryModeIn) : BasicTestingSetup(chainName, fAphoryModeIn)
 {
     SetDataDir("tempdir");
     const CChainParams& chainparams = Params();

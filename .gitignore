@@ -1,14 +1,14 @@
 *.tar.gz
 
 *.exe
-src/particl
-src/particld
-src/particl-cli
-src/particl-tx
-src/particl-wallet
-src/test/test_particl
-src/test/test_particl_fuzzy
-src/qt/test/test_particl-qt
+src/aphory
+src/aphoryd
+src/aphory-cli
+src/aphory-tx
+src/aphory-wallet
+src/test/test_aphory
+src/test/test_aphory_fuzzy
+src/qt/test/test_aphory-qt
 
 # autoreconf
 src/Makefile.in
@@ -52,11 +52,11 @@ src/qt/bitcoin-qt.creator.user
 src/qt/bitcoin-qt.files
 src/qt/bitcoin-qt.includes
 
-src/qt/particl-qt.config
-src/qt/particl-qt.creator
-src/qt/particl-qt.creator.user
-src/qt/particl-qt.files
-src/qt/particl-qt.includes
+src/qt/aphory-qt.config
+src/qt/aphory-qt.creator
+src/qt/aphory-qt.creator.user
+src/qt/aphory-qt.files
+src/qt/aphory-qt.includes
 
 .deps
 .dirstamp
@@ -89,13 +89,13 @@ src/qt/particl-qt.includes
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
-particl-qt
-Particl-Qt.app
+aphory-qt
+Aphory-Qt.app
 background.tiff*
 
 # Unit-tests
 Makefile.test
-particl-qt_test
+aphory-qt_test
 
 # Resources cpp
 qrc_*.cpp
@@ -108,7 +108,7 @@ build
 *.gcno
 *.gcda
 /*.info
-test_particl.coverage/
+test_aphory.coverage/
 total.coverage/
 coverage_percent.txt
 
@@ -123,7 +123,7 @@ test/cache/*
 
 /doc/doxygen/
 
-libparticlconsensus.pc
+libaphoryconsensus.pc
 contrib/devtools/split-debug.sh
 
 # Output from running db4 installation

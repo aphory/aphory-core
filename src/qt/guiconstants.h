@@ -1,4 +1,5 @@
 // Copyright (c) 2011-2018 The Bitcoin Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -46,11 +47,11 @@ static const int MAX_URI_LENGTH = 255;
 /* Number of frames in spinner animation */
 #define SPINNER_FRAMES 36
 
-#define QAPP_ORG_NAME "Particl"
-#define QAPP_ORG_DOMAIN "particl.io"
-#define QAPP_APP_NAME_DEFAULT "Particl-Qt"
-#define QAPP_APP_NAME_TESTNET "Particl-Qt-testnet"
-#define QAPP_APP_NAME_REGTEST "Particl-Qt-regtest"
+#define QAPP_ORG_NAME "Aphory"
+#define QAPP_ORG_DOMAIN "aphory.io"
+#define QAPP_APP_NAME_DEFAULT "Aphory-Qt"
+#define QAPP_APP_NAME_TESTNET "Aphory-Qt-testnet"
+#define QAPP_APP_NAME_REGTEST "Aphory-Qt-regtest"
 
 /* One gigabyte (GB) in bytes */
 static constexpr uint64_t GB_BYTES{1000000000};

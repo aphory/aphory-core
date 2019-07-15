@@ -1,4 +1,5 @@
 // Copyright (c) 2017-2018 The Bitcoin Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -279,7 +280,7 @@ bool TxIndex::WriteBlock(const CBlock& block, const CBlockIndex* pindex)
         IndexCSOutputs(block, pindex);
     }
     // Exclude genesis block transaction because outputs are not spendable.
-    if (!block.IsParticlVersion() && pindex->nHeight == 0) return true;
+    if (!block.IsAphoryVersion() && pindex->nHeight == 0) return true;
 
     CDiskTxPos pos(pindex->GetBlockPos(), GetSizeOfCompactSize(block.vtx.size()));
     std::vector<std::pair<uint256, CDiskTxPos>> vPos;

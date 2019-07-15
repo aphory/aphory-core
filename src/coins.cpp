@@ -1,4 +1,5 @@
 // Copyright (c) 2012-2018 The Bitcoin Core developers
+// Copyright (c) 2019 The Aphory Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -91,7 +92,7 @@ void AddCoins(CCoinsViewCache& cache, const CTransaction &tx, int nHeight, bool 
     bool fCoinbase = tx.IsCoinBase() || tx.IsCoinStake();
     const uint256& txid = tx.GetHash();
 
-    if (tx.IsParticlVersion())
+    if (tx.IsAphoryVersion())
     {
         for (size_t i = 0; i < tx.vpout.size(); ++i)
         {
@@ -289,7 +290,7 @@ CAmount CCoinsViewCache::GetPlainValueIn(const CTransaction &tx,
 
 CAmount CCoinsViewCache::GetValueIn(const CTransaction& tx) const
 {
-    assert(!tx.IsParticlVersion());
+    assert(!tx.IsAphoryVersion());
     if (tx.IsCoinBase())
         return 0;
 
